@@ -18,6 +18,9 @@ class Property(object):
         self.ASKING_PRICE = asking_price
         self.RENT_PER_UNIT = rent_per_unit
 
+    def get_monthly_income(self):
+        return self.NUM_UNITS * self.RENT_PER_UNIT
+
     def print_info(self):
         print "Address:\t{0}\nAsking Price:\t{1}".format(self.ADDRESS, self.ASKING_PRICE) 
         print "Num Units:\t{0}\nRent Per Unit:\t{1}".format(self.NUM_UNITS,self.RENT_PER_UNIT)
