@@ -5,11 +5,15 @@ class Deal(object):
         self.proprty = proprty
         self.mortgage = mortgage
         # Make sure mortgage starts at asking price
-        if self.mortgage.VALUE != self.proprty.ASKING_PRICE:
-            print "WARNING: Initial mortgage size does not match asking price"
+        if self.mortgage.MAX_VALUE < self.proprty.ASKING_PRICE:
+            print "ERROR: Asking price is greater than Mortgage value."
+            print "       No deal :("
+            exit()
+        elif self.mortgage.VALUE >= self.proprty.ASKING_PRICE:
+            print "Note: Initial mortgage size does not match asking price"
             print "for property in this deal. Mortgage is reset to asking"
             print "price."
-            self.mortgage.VALUE = self.proprty.ASKING_PRICE
+            self.mortgage.reset_value_from_asking_price(self.proprty.ASKING_PRICE) 
         self.ASKING_ROI = self.get_ROI(self.mortgage, self.proprty)
         self.TARGET_ROI = target_ROI
 
@@ -18,15 +22,20 @@ class Deal(object):
         money_earned = proprty.get_monthly_income() * 12.0
         return money_earned / money_down
  
-#    def get_montly_cashflow(self, mortgage, proprty):
-#        prop
-#        return proprty.get_monthly_income() - 
-#
+    def get_montly_cashflow(self):
+        return self.proprty.get_monthly_income() - self.mortgage.get_monthly_payment()
+
+    def show_deal(self):
+        print "DEAL SUMMARY:"
+        print
+
 #    def get_offer_price(self):
-#
 #        for i in range(self.proprty.ASKING_PRICE):
 #            offer = self.proprty.ASKING_PRICE - i
-#            self.mortgage.VALUE -= i
+#           self.mortgage.VALUE -= i
+
+
+
 #
 #
 #            money_earned = 12.0 * (monthly_income - monthly_expenses - new_mortgage)

@@ -27,12 +27,12 @@ def get_offer_price(monthly_income, monthly_expenses, asking_price,
 ### ============================================================================
 ### ============================================================================
 ### Cashflow inputs
-NUM_UNITS = 2
-MONTLY_RENT = 535.0
-DESIRED_ROI = 0.15
+NUM_UNITS = 6
+MONTLY_RENT = 475.0
+DESIRED_ROI = 0.50
 
-ASKING_PRICE = 190000
-INTEREST_RATE = 0.04
+ASKING_PRICE = 199000
+INTEREST_RATE = 0.05
 PERCENT_DOWN = 0.25
 CLOSING_COSTS = ASKING_PRICE * 0.03
 ### ============================================================================
@@ -44,8 +44,8 @@ m_income = NUM_UNITS * MONTLY_RENT
 m_mortgage = get_mortgage_payment(ASKING_PRICE * (1.0 - PERCENT_DOWN),
                  INTEREST_RATE, 30.0 * 12)
 m_insurance = 0.08 * m_mortgage
-m_tax = 0.12 * m_mortgage
-m_managment = 0.25 * m_mortgage
+m_tax = 600.0 #0.12 * m_mortgage
+m_managment = 0.08 * m_mortgage
 m_expenses = m_insurance + m_tax + m_managment
 tot_m_expenses = m_expenses + m_mortgage
 
@@ -58,6 +58,7 @@ asking_ROI = money_earned / money_down
 print "### ======================================\n"
 print "Asking:\n Price: {0}\n Down Payment: {1}\n ROI: {2}".format(
        ASKING_PRICE, money_down, asking_ROI)
+print "Cashflow: {0}".format(m_income - tot_m_expenses)
 
 if (asking_ROI < DESIRED_ROI):
     offer, this_money_down, this_ROI, new_mortgage = get_offer_price(m_income, m_expenses, ASKING_PRICE,
